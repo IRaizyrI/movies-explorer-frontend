@@ -1,0 +1,17 @@
+@import url(../NotFoundPage/NotFoundPage.css);
+@import url(../Header/Header.css);
+@import url(../SearchForm/SearchFrom.css);
+@import url(../MoviesCardList/MoviesCardList.css);
+@import url(../MoviesCard/MoviesCard.css);
+@import url(../Movies/Movies.css);
+@import url(../Footer/Footer.css);
+@import url(../Profile/Profile.css);
+@import url(../Register/Register.css);
+@import url(../Login/Login.css);
+@import url(../Main/Main.css);
+
+.App{
+    background-color: #202020;
+    font-family: 'Inter', Arial, sans-serif;
+    color: #FFFFFF;
+}
