@@ -103,6 +103,7 @@
     min-width: 292px;
   }
   .aboutme__title{
+    margin-top: 70px;
     font-size: 18px;
     line-height: 22px;
     letter-spacing: -0.04em;
@@ -110,7 +111,7 @@
   }
   .aboutme__info {
     flex-direction: column;
-    margin-top: 60px;
+    margin: 60px 0 70px;
   }
   .aboutme__name {
     font-size: 30px;

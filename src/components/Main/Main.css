@@ -4,3 +4,6 @@
 @import url(./Techs/Techs.css);
 @import url(./AboutMe/AboutMe.css);
 @import url(./Portfolio/Portfolio.css);
+.main {
+  background-color: #202020;
+}

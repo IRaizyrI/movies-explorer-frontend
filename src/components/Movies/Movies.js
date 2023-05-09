@@ -1,18 +1,14 @@
 import React from 'react';
-import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
 function Movies() {
   return (
-    <div className='movies'>
-      <Header/>
+    <main className='movies'>
       <SearchForm />
       <MoviesCardList isSaved={false} />
-      <button className="movies__btn_more">Ещё</button>
-      <Footer/>
-    </div>
+      <button className="movies__btn-more">Ещё</button>
+    </main>
   );
 }
 

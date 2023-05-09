@@ -11,7 +11,7 @@
   z-index: 1;
 }
 
-.header__not-home-page {
+.header_not-home-page {
   display: flex;
   flex-direction: row;
   justify-content: space-between;

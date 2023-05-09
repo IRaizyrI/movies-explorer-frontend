@@ -130,10 +130,10 @@
     letter-spacing: 0em;
     margin-bottom: 56px;
   }
-  .about__name_back, .about__cell_back {
+  .about__name_backend, .about__cell_backend {
     width: 100px;
   }
-  .about__name_front, .about__cell_front {
+  .about__name_frontend, .about__cell_frontend {
     width: 184px;
   }
 

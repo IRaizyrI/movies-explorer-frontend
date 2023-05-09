@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 function Register() {
   return (
-    <section className='register'>
+    <main className='register'>
       <div className='login__header'>
         <Link to='/' className='login__header-logo'></Link>
         <h1 className='login__header-title'>Добро пожаловать!</h1>
@@ -21,7 +21,7 @@ function Register() {
           <p className='signin__text'>Уже зарегистрированы?</p>
           <Link to='/signin' className='register__btn register__btn_signin'>Войти</Link>
         </div>
-    </section>
+    </main>
   )
 }
 

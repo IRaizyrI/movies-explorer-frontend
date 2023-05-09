@@ -25,7 +25,7 @@ function Header() {
       );
     } else if (['/movies', '/saved-movies', '/profile'].includes(location.pathname)) {
       return (
-        <header className="header header__not-home-page">
+        <header className="header header_not-home-page">
           <img className="header__logo" onClick={() => navigate('/')} src={logoHeader} alt="Логотип" />
           <div className="header__navigation-links">
             <Link className="header__navigation-link" to="/movies">Фильмы</Link>
@@ -34,7 +34,7 @@ function Header() {
           <nav className="header__navigation">
             <button className="header__account-button" onClick={() => navigate('/profile')}>
               <img className="header__account-logo" src={accountIcon} alt="Аккаунт" />
-              <p className="header__account-text">Аккаунт</p>
+              <span className="header__account-text">Аккаунт</span>
             </button>
             <button className={`header__burger ${isActive ? "header__burger_active" : ''}`} type="button" onClick={handleNav} />
           </nav>
@@ -45,9 +45,7 @@ function Header() {
   };
 
   return (
-    <div className="location">
-      {headerContent()}
-    </div>
+      headerContent()
   );
 }
 

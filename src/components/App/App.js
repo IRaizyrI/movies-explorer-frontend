@@ -6,10 +6,13 @@ import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
-
+import Footer from '../Footer/Footer'
+import Header from '../Header/Header'
 function App() {
   return (
     <div className="App">
+      <Header isLogged={false}
+        isMain={true}/>
       <Routes>
         <Route exact path="/" element={<Main />} />
         <Route exact path="/movies" element={<Movies />} />
@@ -19,6 +22,7 @@ function App() {
         <Route exact path="/signin" element={<Login />} />
         <Route exact path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer/>
     </div>
   );
 }

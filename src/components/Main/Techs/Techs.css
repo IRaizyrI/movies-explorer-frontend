@@ -75,9 +75,14 @@
   }
 
 }
+@media screen and (max-width: 800px) {
+.techs__skills {
+  justify-content: space-evenly;
+}
+}
 @media screen and (max-width: 1279px) {
   .techs-wrapper {
-    max-width: calc(100vw - 100px);
+    max-width: 684px;
   }
   .techs__title {
     margin-top: 90px;
@@ -87,16 +92,23 @@
   }
   .techs__skill {
     width: 84px;
-    
+
   }
-  .techs__skills {
-    justify-content: space-evenly;
-  }
+
   .techs__text {
     font-size: 12px;
     line-height: 18px;
   }
 }
+@media screen and (max-width: 485px) {
+  .techs__skill:last-child {
+    margin-right: auto;
+  }
+  .techs__skills {
+    justify-content: space-between;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .techs {
     background-color: #202020;
@@ -111,6 +123,7 @@
     line-height: 36px;
     margin: auto
   }
+
   .techs__skills {
     gap: 10px;
     width: 63%;

@@ -1,12 +1,9 @@
 import React from 'react'
-import Header from '../Header/Header'
 import {Link} from 'react-router-dom'
 function Profile({name, email}) {
 
   return (
-    <section className='profile'>
-      <Header 
-      isLogged={true}/>
+    <main className='profile'>
       <div className='profile__wrapper'>
         <h1 className='profile__title'>{`Привет, ${name}!`}</h1>
         <form className='profile__form'>
@@ -18,7 +15,7 @@ function Profile({name, email}) {
         <button className='profile__btn profile__button_edit'>Редактировать</button>
         <Link to='/signin' className='profile__btn profile__button_signout'>Выйти из аккаунта</Link>
       </div>
-    </section>
+    </main>
   )
 }
 

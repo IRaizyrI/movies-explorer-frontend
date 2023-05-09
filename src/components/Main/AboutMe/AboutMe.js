@@ -17,6 +17,7 @@ function AboutMe() {
               className="aboutme__social"
               alt="github"
               href="https://github.com/IRaizyrI"
+              target="_blank" rel="noopener noreferrer"
             >
               Github
             </a>

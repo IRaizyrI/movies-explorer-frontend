@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 function Login() {
   return (
-    <section className='login'>
+    <main className='login'>
       <div className='login__header'>
         <Link to='/' className='login__header-logo'></Link>
         <h1 className='login__header-title'>Рады видеть!</h1>
@@ -18,7 +18,7 @@ function Login() {
           <Link to='/signup' className='login__btn login__btn_signin'>Регистрация</Link>
         </div>
       </form>
-    </section>
+    </main>
   )
 }
 
