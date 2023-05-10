@@ -93,6 +93,8 @@
   }
   .footer__link {
     margin: 0;
+    font-size: 12px;
+    line-height: 15px;
   }
   .footer__info-year {
     order: 2;
