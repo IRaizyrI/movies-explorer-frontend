@@ -156,6 +156,9 @@
   .about__name_backend, .about__cell_backend {
     min-width: 100px;
   }
+  .about__title {
+    margin-top: 70px;
+  }
   .about__name_frontend, .about__cell_frontend {
     min-width: 184px;
   }
