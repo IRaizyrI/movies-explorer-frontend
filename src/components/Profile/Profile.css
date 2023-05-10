@@ -75,9 +75,22 @@
   color: #EE3465;
   margin-top: 16px;
 }
+
+@media screen and (max-width: 1278px){
+  .profile__wrapper {
+    margin-top:236px;
+  }
+  .profile__title {
+    margin-bottom: 82px;
+  }
+}
+
 @media screen and (max-width: 767px) and (min-width: 320px) {
   .profile__title {
     margin-bottom: 64px;
+  }
+  .profile__wrapper {
+    margin-top:70px;
   }
   .profile__form {
     width: 260px;

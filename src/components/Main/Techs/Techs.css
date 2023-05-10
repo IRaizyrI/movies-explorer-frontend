@@ -92,9 +92,12 @@
   }
   .techs__skill {
     width: 84px;
-
+    font-size: 12px;
+    line-height: 15px;
   }
-
+  .techs__skills {
+    margin-bottom: 90px;
+  }
   .techs__text {
     font-size: 12px;
     line-height: 18px;

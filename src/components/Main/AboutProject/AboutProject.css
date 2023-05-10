@@ -105,6 +105,10 @@
     font-weight: 400;
     line-height: 18px;
   }
+  .about__item-description {
+    font-size: 12px;
+    line-height: 18px;
+  }
   .about__progress {
     margin-bottom: 80px;
   }
