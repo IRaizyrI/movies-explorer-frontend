@@ -89,7 +89,12 @@
     font-size: 18px;
     line-height: 28px;
   }
-  
+  .portfolio__title {
+    font-size: 14px;
+  }
+  .portfolio__links-list {
+    margin-bottom: 70px;
+  }
 }
 
 @media screen and (max-width: 1279px) {

@@ -143,5 +143,8 @@
   }
   .techs__title {
     border-bottom: 1px solid #000;
+    margin-top: 70px;
+    font-size: 18px;
+    line-height: 22px;
   }
 }

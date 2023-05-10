@@ -108,6 +108,9 @@
   .about__progress {
     margin-bottom: 80px;
   }
+  .about__name_backend, .about__name_frontend{
+    color: #A0A0A0;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -130,11 +133,27 @@
     letter-spacing: 0em;
     margin-bottom: 56px;
   }
+  .about__cell_backend, .about__cell_frontend {
+      font-size: 11px;
+      line-height: 13px;
+      padding: 11px 0;
+  }
+  .about__name_backend, .about__name_frontend {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 13px;
+    letter-spacing: 0px;
+    text-align: center;
+    margin: 11px 0 0;
+  }
+  .about__progress {
+    margin-bottom: 70px;
+  }
   .about__name_backend, .about__cell_backend {
-    width: 100px;
+    min-width: 100px;
   }
   .about__name_frontend, .about__cell_frontend {
-    width: 184px;
+    min-width: 184px;
   }
 
 }
