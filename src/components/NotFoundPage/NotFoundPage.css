@@ -11,7 +11,7 @@
   font-size: 140px;
   line-height: 169px;
   text-align: center;
-  margin: 0 auto; 
+  margin: 0 auto;
   padding-top: 15rem;
 }
 .notfound__text {
@@ -34,9 +34,6 @@
 }
 
 @media screen and (max-width: 1279px) and (min-width: 768px) {
-  .notfound__title {
-    padding-top: 26rem;
-  }
   .notfound__text {
     margin: 5px auto 14rem;
   }
