@@ -1,0 +1,139 @@
+.searchform {
+  width: 100%;
+  background-color: #202020;
+  padding: 60px 0 10px;
+}
+.searchform__form {
+  margin: 0 auto;
+  max-width: 89%;
+  display: flex;
+  position: relative;
+  padding-bottom: 70px;
+  border-bottom: 1px solid #424242;
+  max-width: 1140px;
+}
+.searchform__input {
+  background-color: #202020;
+  border: 1.5px solid rgba(170, 170, 170, 0.2);
+  border-radius: 40px;
+  padding: 14px 22px;
+  width: 100%;
+  color: #8B8B8B;
+}
+.searchform__container{
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  width: 100%;
+}
+.searchform__btn {
+  position: absolute;
+  background-image: url(../../images/search_arrow.svg);
+  width: 34px;
+  height: 34px;
+  background-color: #4285f4;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  border-radius: 17px;
+  top: 6px;
+  right: 6px;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.searchform__btn:hover {
+  opacity: 0.5;
+}
+
+.searchform__text {
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+  margin: 0;
+}
+
+
+
+.searchform__toggle {
+  display: flex;
+  align-items: center;
+}
+
+.searchform__switch {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  appearance: none;
+  background-color: #202020;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0px 4px 8px 0px #3232470f;
+}
+
+.searchform__switch:checked {
+  background-color: #202020;
+}
+
+.searchform__switch:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0px 4px 4px 0px #32324714;
+}
+
+.searchform__switch:checked:before {
+  transform: translateX(16px);
+  background-color: #3ddc84;
+
+}
+.searchform__text {
+  margin: 0 14px 0 41px;
+}
+
+
+@media screen and (max-width: 1279px)  {
+  .searchform__form {
+    padding-bottom: 57px;
+    max-width: calc(100vw - 60px);
+    flex-direction: column;
+    align-items: center;
+  }
+  .searchform__text {
+    margin-left: 0;
+  }
+  .searchform__toggle{
+    margin-top: 38px;
+  }
+}
+
+
+@media screen and (max-width: 767px)  {
+  .searchform__toggle{
+    margin-top: 43px;
+  }
+  .searchform {
+    padding-bottom: 0;
+  }
+  .searchform__form {
+    padding-bottom: 44px;
+  }
+  .searchform__text {
+    font-size: 11px;
+    line-height: 18px;
+    margin: 0 13px 0 0;
+  }
+  .searchform__input{
+    font-size: 11px;
+    line-height: 18px;
+  }
+}
