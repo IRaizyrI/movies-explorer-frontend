@@ -12,6 +12,15 @@
   padding-top: 70px;
   grid-auto-flow: row;
 }
+.moviescardlist__hint {
+  font-family: 'Inter';
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  border: 2px solid rgba(171, 171, 171, 0.2);
+  border-radius: 50px;
+  text-align: center;
+}
 
 @media screen and (max-width: 1279px) and (min-width: 768px) {
   .moviescardlist-wrapper {

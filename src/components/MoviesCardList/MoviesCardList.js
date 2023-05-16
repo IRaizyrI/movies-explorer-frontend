@@ -1,30 +1,25 @@
-import React from 'react';
+import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ isSaved, storedSave }) {
+function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength, currentUser }) {
   return (
-    <section className="moviescardlist">
-      {isSaved ? (
-        <div className="moviescardlist-wrapper">
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-        </div>
-      ) : (
-        <div className="moviescardlist-wrapper">
-          <MoviesCard isSaved={!isSaved} />
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-        </div>
-      )}
+    <section className="moviescardlist moviescardlist-wrapper">
+        {movieCards.map((card, id) => {
+          return (
+              <div className='moviecard-wrapper' key={card.id ? card.id : id}>
+                <MoviesCard
+                  card={card}
+                  isLiked={card.isLiked}
+                  onSave={onSave}
+                  onDelete={onDelete}
+                  savedMovies={savedMovies}
+                  currentUser={currentUser}
+                />
+              </div>
+          )
+        }).slice(0, listLength)}
+
+      {movieCards.length === 0 ? <p className='moviescardlist__hint'>Ничего не найдено или строка поиска пуста</p> : movieCards.length > listLength}
     </section>
   );
 }

@@ -28,7 +28,6 @@
   flex-direction: column;
   width: 410px;
   position: relative;
-  margin-bottom: 204px;
 }
 .profile__input {
   width: 100%;
@@ -54,6 +53,11 @@
   line-height: 13px;
   color: #FFFFFF;
 }
+.profile__btn_active:hover{
+    transition: all 0.4s ease-in-out;
+    opacity: 0.6;
+    cursor: pointer;
+}
 .profile__input_label_name {
   top: 16px;
 }
@@ -75,7 +79,34 @@
   color: #EE3465;
   margin-top: 16px;
 }
-
+.profile__button_edit {
+  margin-top: 12px
+}
+.profile__error {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+  margin: 0;
+}
+.profile__status{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  margin: 0;
+  text-align: center;
+  margin-top: 204px;
+}
+.profile__status_error{
+  color: #EE3465;
+}
+.profile__status_success{
+  color: #fff;
+}
 @media screen and (max-width: 1278px){
   .profile__wrapper {
     margin-top:236px;
@@ -94,6 +125,9 @@
   }
   .profile__form {
     width: 260px;
-    margin-bottom: 363px;
+
+  }
+  .profile__button_edit {
+    margin-top: 363px;
   }
 }

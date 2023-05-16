@@ -1,9 +1,9 @@
 import './Preloader.css';
 
-function Preloader() {
+const Preloader = ({isLoading}) => {
   return (
-    <div className="preloader">
-      <div className="preloader__container">
+    <div className={`${!isLoading ? 'preloader_removed' : 'preloader'}`}>
+      <div className="preloader__container ">
         <span className="preloader__round"></span>
       </div>
     </div>

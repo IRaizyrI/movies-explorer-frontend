@@ -5,15 +5,14 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 
-function Header() {
+function Header( {loggedIn} ) {
   const [isActive, setIsActive] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
 
   const handleNav = () => setIsActive(!isActive);
 
   const headerContent = () => {
-    if (location.pathname === '/') {
+    if (!loggedIn) {
       return (
         <header className="header">
           <img className="header__logo" onClick={() => navigate('/')} src={logoHeader} alt="Логотип" />
@@ -23,7 +22,7 @@ function Header() {
           </nav>
         </header>
       );
-    } else if (['/movies', '/saved-movies', '/profile'].includes(location.pathname)) {
+    } else {
       return (
         <header className="header header_not-home-page">
           <img className="header__logo" onClick={() => navigate('/')} src={logoHeader} alt="Логотип" />

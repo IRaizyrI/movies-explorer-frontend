@@ -19,7 +19,9 @@
   max-width: 320px;
   transition: 0.5s;
 }
-
+.movies__btn-more_hidden{
+  display: none;
+}
 .movies__btn-more:hover {
   opacity: 0.5;
 }

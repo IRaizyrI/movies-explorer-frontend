@@ -38,7 +38,7 @@
   border: none;
   border-radius: 8px;
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   font-family: 'Inter';
   font-weight: 400;
   font-size: 13px;
@@ -53,9 +53,10 @@
   line-height: 12px;
   color: #8B8B8B;
 }
+
 .register__btn_signup {
   width: 396px;
-  margin: 69px auto 16px;
+  margin: 12px auto 16px;
   padding: 13px 0 15px 0;
   background-color: #4285f4;
   border-radius: 3px;
@@ -90,8 +91,13 @@
   margin-left: 6px;
   color: #4285f4;
 }
+.register__btn_disabled {
+  background-color:#8B8B8B;
+}
 
-
+.register__form-label_server-error{
+  margin-top: 69px;
+}
 @media screen and (max-width: 767px) and (min-width: 320px) {
   .register__header-logo {
     margin: 0 auto;
@@ -116,6 +122,8 @@
     font-size: 12px;
     line-height: 15px;
     margin-bottom: 0;
+  }
+  .register__form-label_server-error{
     margin-top: 157px;
   }
   .register__header {
