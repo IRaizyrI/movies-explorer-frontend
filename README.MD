@@ -2,6 +2,7 @@
 
 ### Ссылка на файл макета - https://disk.yandex.com/d/w4JtRZ_Qmf71ww
 ### Ссылка на пул-реквест для ревью - https://github.com/IRaizyrI/movies-explorer-frontend/pull/3
+### Ссылка на запущенный фронт на сервере - https://logvinovilya-dip.nomoredomains.monster/
 ## Сайт сделан для трех основных разрешений 1280, 760, 320.
 Доступные маршруты:
 - / - Лендинг
