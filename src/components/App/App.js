@@ -15,6 +15,7 @@ import { moviesApi } from "../../utils/MoviesApi"
 import {useWindowWidth} from '../../hooks/useWindowWidth'
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 import Preloader from "../Preloader/Preloader"
+import { RU_ERRORS } from '../../utils/constants';
 function App() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
@@ -25,7 +26,7 @@ function App() {
   const [savedMoviesFilter, setSavedMoviesFilter] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [addMoviesCount, setAddMoviesCount] = useState(0);
-  const [listLength, setListLength] = useState(0);
+  const [cardCount, setCardCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [searchInitialized, setSearchInitialized] = useState(false);
   const location = useLocation();
@@ -45,14 +46,14 @@ function App() {
               navigate('/');
             })
             .catch((err) => {
-              setIsSuccess({success: false, message: err.message});
+              setIsSuccess({success: false, message: RU_ERRORS[err]});
               console.log(isSuccess);
             });
         }
       })
       .catch((err) => {
-        setIsSuccess({success: false, message: err.message});
-        console.log(isSuccess);
+        console.log(err)
+        setIsSuccess({success: false, message: RU_ERRORS[err]});
       });
   }
 
@@ -73,6 +74,7 @@ function App() {
     mainApi.signOut().then((res) => {
       setLoggedIn(false)
       navigate('/signin')
+      localStorage.clear();
   })
   }
   useEffect(() => {
@@ -103,13 +105,13 @@ function App() {
           setLocalSavedData(userMovies);
         })
         .catch((err) => {
-          console.log(`Сохраненные фильмы не удалось получить: ${err}`)
+          console.log(`Проблема с получением сохраненных фильмов: ${err}`)
         })
         .finally(() => setIsLoading(false));
   }, [currentUser])
 
   function addMovies() {
-    setListLength(listLength + addMoviesCount);
+    setCardCount(cardCount + addMoviesCount);
   }
 
   const handleSaveMovie = (card) => {
@@ -142,7 +144,7 @@ function App() {
         setIsSuccess({success: true, message: "Сохранено успешно"});
       })
       .catch(err => {
-        setIsSuccess({success: false, message: err.message});
+        setIsSuccess({success: false, message: RU_ERRORS[err]});
       });
 
   };
@@ -186,8 +188,8 @@ function App() {
   const savedDurationSwitch = (checked) => {
     const savedFiltered = JSON.parse(localStorage.getItem('savedFilter'));
     if (checked === '1' && savedFiltered) {
-      const shorts = savedFiltered.filter((item) => item.duration <= 40);
-      setSavedMoviesFilter(shorts);
+      const shortDurationFilms = savedFiltered.filter((item) => item.duration <= 40);
+      setSavedMoviesFilter(shortDurationFilms);
     } else {
       setSavedMoviesFilter(savedFiltered);
     }
@@ -196,13 +198,13 @@ function App() {
   const width = useWindowWidth();
   useEffect(() => {
     if (width >= 1280) {
-      setListLength(12);
+      setCardCount(12);
       setAddMoviesCount(3);
     } else if (width >= 768 && width <= 1279) {
-      setListLength(8);
+      setCardCount(8);
       setAddMoviesCount(2);
     } else if (width <= 320 && width <= 480) {
-      setListLength(5);
+      setCardCount(5);
       setAddMoviesCount(1);
     }
     setSearchInitialized(false);
@@ -220,7 +222,7 @@ function App() {
                 <Preloader isLoading={isLoading}/>
                 <Movies
                   currentUser={currentUser}
-                  listLength={listLength}
+                  listLength={cardCount}
                   durationSwitch={durationSwitch}
                   handleSearch={handleSearch}
                   savedMovies={localSavedData}
@@ -240,7 +242,7 @@ function App() {
                   onDelete={handleDeleteCard}
                   addMovies={addMovies}
                   savedMovies={savedMoviesFilter}
-                  listLength={listLength}
+                  listLength={cardCount}
                 />
             </ProtectedRoute>
               } />

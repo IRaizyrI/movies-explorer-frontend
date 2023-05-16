@@ -2,31 +2,46 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function SearchForm({ handleSearch, durationSwitch }) {
-  const location = useLocation();
-  const localStorageKey = location.pathname === '/saved-movies' ? 'savedMoviesSearchValue' : 'saveSearchValue';
-  const localStorageCheckedKey = location.pathname === '/saved-movies' ? 'savedMoviesCheck' : 'saveCheck';
+  const savedSearch = localStorage.getItem('saveSearchValue')
+  const savedCheck = localStorage.getItem('saveCheck')
 
-  const localStorageValue = localStorage.getItem(localStorageKey);
-  const localChecked = localStorage.getItem(localStorageCheckedKey);
+  const location = useLocation()
 
-  const [checked, setChecked] = useState(localChecked ?? '0');
-  const [value, setValue] = useState(localStorageValue ?? '');
-
-  useEffect(() => {
-    localStorage.setItem(localStorageKey, value);
-    localStorage.setItem(localStorageCheckedKey, checked);
-  }, [value, checked]);
+  const [checked, setChecked] = useState(savedCheck ?? '0')
+  const [value, setValue] = useState(savedSearch ?? '')
 
   const handleSubmitForm = (e) => {
-    e.preventDefault();
-    handleSearch(value);
-    durationSwitch(checked);
+    e.preventDefault()
+    setChecked('0')
+    handleSearch(value)
   }
 
   useEffect(() => {
-    handleSearch(localStorage.getItem(localStorageKey) ?? '');
-    durationSwitch(localStorage.getItem(localStorageCheckedKey) ?? '0');
-  }, [location]);
+    if (location.pathname === '/saved-movies') {
+      setChecked('0')
+      handleSearch(value)
+      setValue('')
+    }
+  }, [location])
+
+
+  useEffect(() => {
+    if (location.pathname === '/movies') {
+      localStorage.setItem('saveSearchValue', value)
+      localStorage.setItem('saveCheck', checked)
+    }
+  }, [value, checked])
+
+
+  useEffect(() => {
+    if (location.pathname === '/saved-movies') {
+      durationSwitch(checked)
+    }
+    if (location.pathname === '/movies') {
+      handleSearch(savedSearch ?? '')
+      durationSwitch(checked ?? '0')
+    }
+  }, [location, checked])
 
   return (
     <section className="searchform">

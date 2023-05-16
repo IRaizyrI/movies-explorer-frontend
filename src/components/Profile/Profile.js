@@ -71,7 +71,7 @@ function Profile({ user, handleEditProfile, signOut, handleError }) {
           <label className={`profile__status ${handleError.success ? "profile__status_success" : "profile__status_error"}`}>{handleError.message}</label>
           <button
             className={`profile__btn profile__button_edit ${
-              formEnabled && "profile__btn_active"
+              formEnabled && "profile__btn-edit_active"
             }`}
             disabled={!formEnabled || nameError || emailError}
           >

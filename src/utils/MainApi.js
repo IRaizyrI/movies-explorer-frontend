@@ -8,10 +8,9 @@ export class MainApi{
     if(res.ok){
       return res.json()
     }
-    return res.json().then(json => {
-      return Promise.reject(json);
-    });
-  }
+      return Promise.reject(res.status);
+    };
+
 
 registration ({name, email, password}) {
   return fetch(`${this._BASE_URL}/signup`, {
@@ -99,7 +98,6 @@ deleteCard (cardId) {
 };
 
 signOut(){
-  console.log(this._BASE_URL)
   return fetch(`${this._BASE_URL}/signout`, {
     method: 'GET',
     credentials: 'include',
