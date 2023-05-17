@@ -9,11 +9,14 @@ function SearchForm({ handleSearch, durationSwitch }) {
 
   const [checked, setChecked] = useState(savedCheck ?? '0')
   const [value, setValue] = useState(savedSearch ?? '')
+  const [hasSearched, setHasSearched] = useState(false); // new state variable
 
   const handleSubmitForm = (e) => {
     e.preventDefault()
-    setChecked('0')
-    handleSearch(value)
+    if (value.trim() !== '') {
+      setHasSearched(true);
+      handleSearch(value);
+    }
   }
 
   useEffect(() => {
@@ -24,25 +27,28 @@ function SearchForm({ handleSearch, durationSwitch }) {
     }
   }, [location])
 
-
   useEffect(() => {
     if (location.pathname === '/movies') {
       localStorage.setItem('saveSearchValue', value)
       localStorage.setItem('saveCheck', checked)
+      if (value.trim() === '') {
+        setHasSearched(false);
+      }
     }
-  }, [value, checked])
-
+  }, [value, checked, location])
 
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
       durationSwitch(checked)
     }
-    if (location.pathname === '/movies') {
+    if (location.pathname === '/movies' && hasSearched) {
       handleSearch(savedSearch ?? '')
+
+    }
+    if (location.pathname === '/movies') {
       durationSwitch(checked ?? '0')
     }
-  }, [location, checked])
-
+  }, [location, checked, hasSearched, savedSearch])
   return (
     <section className="searchform">
       <form className="searchform__form" onSubmit={handleSubmitForm}>

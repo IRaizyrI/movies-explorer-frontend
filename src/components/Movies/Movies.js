@@ -11,7 +11,7 @@ function Movies({ movieCards, onSave, savedMovies, handleSearch, durationSwitch,
               durationSwitch={durationSwitch}
             />
             <MoviesCardList
-              movieCards={movieCards}
+              movieCards={movieCards || []}
               onSave={onSave}
               savedMovies={savedMovies}
               listLength={listLength}
@@ -19,7 +19,7 @@ function Movies({ movieCards, onSave, savedMovies, handleSearch, durationSwitch,
               onDelete={onDelete}
               currentUser={currentUser}
             />
-            <button className={`movies__btn-more ${(movieCards.length <= listLength || movieCards.length === 0) && 'movies__btn-more_hidden'}`} onClick={addMovies}>Ещё</button>
+            <button className={`movies__btn-more ${(!movieCards || movieCards.length <= listLength || movieCards.length === 0) && 'movies__btn-more_hidden'}`} onClick={addMovies}>Ещё</button>
           </section>
       </main>
   );

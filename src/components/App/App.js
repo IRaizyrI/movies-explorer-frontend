@@ -115,11 +115,11 @@ function App() {
   }
 
   const handleSaveMovie = (card) => {
-    const like = localSavedData.some((i) =>
+    const save = localSavedData.some((i) =>
       i.movieId === card.id
     );
 
-    if (!like) {
+    if (!save) {
       mainApi.postCard(card).then(res => {
         setLocalSavedData([...localSavedData, res])
       })
