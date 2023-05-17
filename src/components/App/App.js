@@ -205,7 +205,7 @@ function App() {
       setAddMoviesCount(2);
     } else if (width <= 320 && width <= 480) {
       setCardCount(5);
-      setAddMoviesCount(1);
+      setAddMoviesCount(2);
     }
     setSearchInitialized(false);
   }, [width, searchInitialized])
