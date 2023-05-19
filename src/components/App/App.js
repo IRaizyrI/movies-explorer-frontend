@@ -40,7 +40,6 @@ function App() {
     authFn
       .then((res) => {
         if (operationType === 'login') {
-          console.log("loggedIn")
           navigate('/movies')
           setLoggedIn(true);
           setIsSuccess({success: true, message: ''});
