@@ -15,7 +15,7 @@ function Profile({ handleEditProfile, signOut, handleError }) {
   function handleChangeName(evt) {
     const value = evt.target.value;
     setUserName(value);
-    setNameError(nameRegex.test(value) ? "" : "Имя должно содержать только латиницу, кириллицу, пробел или дефис");
+    setNameError(nameRegex.test(value) ? "" : "Имя должно быть от 2 символов и содержать только латиницу, кириллицу, пробел или дефис ");
   }
 
   function handleChangeEmail(evt) {
