@@ -56,6 +56,7 @@
 }
 .login__form-label_error {
   color: #EE3465;
+  margin-bottom: 159px;
 }
 .login__btn_signup {
   width: 396px;
@@ -88,12 +89,6 @@
   margin-left: 6px;
   color: #4285f4;
 }
-.login__btn-container {
-  margin-top: 159px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-}
 .login__btn_disabled {
   background-color:#8B8B8B;
 }
@@ -119,8 +114,8 @@
   .login__header-logo {
     align-self: center;
   }
-  .login__btn-container {
-    margin-top: 250px;
+  .login__form-label_error {
+    margin-bottom: 250px;
   }
   .login__btn_signup {
     width: 260px;

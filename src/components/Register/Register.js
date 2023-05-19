@@ -28,7 +28,6 @@ function Register({ handleRegister, handleError }) {
             onChange={handleChange}
             required
           />
-          <label className='register__form-label register__form-label_error'>{errors.name}</label>
           <label className='register__form-label register__form-label_email'>E-mail</label>
           <input
             className='register__form-input register__form-input_email'
@@ -39,7 +38,6 @@ function Register({ handleRegister, handleError }) {
             onChange={handleChange}
             required
           />
-          <label className='register__form-label register__form-label_error'>{errors.email}</label>
           <label className='register__form-label register__form-label_password'>Пароль</label>
           <input
             className='register__form-input register__form-input_password'
@@ -50,8 +48,7 @@ function Register({ handleRegister, handleError }) {
             onChange={handleChange}
             required
           />
-          <label className='register__form-label register__form-label_error'>{errors.password}</label>
-          <label className='register__form-label register__form-label_error register__form-label_server-error'>{handleError.message}</label>
+          <label className='register__form-label register__form-label_error register__form-label_server-error'>{errors.password || errors.email || errors.name || handleError.message}</label>
           <button className={`register__btn register__btn_signup ${!isValid && 'register__btn_disabled'}`} type="submit" disabled={!isValid}>Зарегистрироваться</button>
         </form>
         <div className='register__signin'>

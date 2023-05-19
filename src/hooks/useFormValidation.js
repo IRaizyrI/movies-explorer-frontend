@@ -11,8 +11,6 @@ export const useFormValidation = (isNameRequired = false) => {
     const name = target.name;
     const value = target.value;
     setValues({ ...values, [name]: value });
-    const errorMessage = name === 'name' ? validateName(value) : target.validationMessage;
-    setErrors({ ...errors, [name]: errorMessage });
     setTargetValue(target)
   };
 
@@ -28,14 +26,21 @@ export const useFormValidation = (isNameRequired = false) => {
     return String(name)
       .match(
         /^[а-яА-Я a-zA-Z-\s]{1,50}$/
-      ) ? '' : 'Имя должно содержать только латиницу, кириллицу, пробел или дефис';
+      );
   };
 
-useEffect(() => {
+  useEffect(() => {
+    const errorMessage = {};
+    errorMessage.email = values.email && validateEmail(values.email) ? '' : 'Указан недействительный Email';
+    errorMessage.password = values.password ? '' : 'Не введен пароль';
+    if (isNameRequired) {
+      errorMessage.name = values.name && validateName(values.name) ? '' : 'Имя должно содержать только латиницу, кириллицу, пробел или дефис';
+    }
+    setErrors(errorMessage);
     setIsValid(
       Boolean(values.email && validateEmail(values.email)) &&
       Boolean(values.password) &&
-      (isNameRequired ? Boolean(values.name && !validateName(values.name)) : true) &&
+      (isNameRequired ? Boolean(values.name && validateName(values.name)) : true) &&
       targetValue.checkValidity()
     )
   }, [values, targetValue, isNameRequired])

@@ -29,7 +29,6 @@ function Login({ handleLogin, handleError }) {
           onChange={handleChange}
           required
         />
-        <label className='login__form-label login__form-label_error'>{errors.email}</label>
         <label className='login__form-label login__form-label_password'>Пароль</label>
         <input
           className="login__form-input"
@@ -40,11 +39,8 @@ function Login({ handleLogin, handleError }) {
           onChange={handleChange}
           required
         />
-        <label className='login__form-label login__form-label_error'>{errors.password}</label>
-        <div className='login__btn-container'>
-        <label className='login__form-label login__form-label_error'>{handleError.message}</label>
+        <label className='login__form-label login__form-label_error'>{errors.email ||errors.password || handleError.message}</label>
         <button className={`login__btn login__btn_signup ${!isValid && 'login__btn_disabled'}`} type="submit" disabled={!isValid}>Войти</button>
-        </div>
         <div className='login__signin'>
           <p className='signin__text'>Ещё не зарегистрированы?</p>
           <Link to='/signup' className='login__btn login__btn_signin'>Регистрация</Link>
