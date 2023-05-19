@@ -1,7 +1,7 @@
 import React from 'react'
 import {useLocation} from "react-router-dom";
 import {durationConverter} from '../../utils/utils'
-function MoviesCard({ card, onSave, onDelete, savedMovies, cardKey }) {
+function MoviesCard({ card, onSave, onDelete, savedMovies}) {
   const location = useLocation();
   function handleSaveClick () {
     if (location.pathname === "/movies") {
@@ -12,7 +12,7 @@ function MoviesCard({ card, onSave, onDelete, savedMovies, cardKey }) {
     }
   }
   return (
-    <div className='moviecard' key={cardKey}>
+    <div className='moviecard'>
       <a className='moviescard__link' href={card.trailerLink} target="_blank" rel="noreferrer">
         <img className='moviecard__img' src={location.pathname === "/movies" ?
           `https://api.nomoreparties.co${card.image.url}` : card.image} alt='movie'></img>

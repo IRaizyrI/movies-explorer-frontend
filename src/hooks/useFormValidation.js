@@ -18,14 +18,14 @@ export const useFormValidation = (isNameRequired = false) => {
     return String(email)
       .toLowerCase()
       .match(
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/
       );
   };
 
   const validateName = (name) => {
     return String(name)
       .match(
-        /^[а-яА-Я a-zA-Z-\s]{1,50}$/
+        /^[а-яА-Я a-zA-Z-\s]{2,50}$/
       );
   };
 

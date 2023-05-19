@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-
-function Profile({ user, handleEditProfile, signOut, handleError }) {
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+function Profile({ handleEditProfile, signOut, handleError }) {
+  const user = useContext(CurrentUserContext);
   const [userName, setUserName] = useState(user.name);
   const [userEmail, setUserEmail] = useState(user.email);
   const [formEnabled, setFormEnabled] = useState(false);
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
 
-  const nameRegex = /^[a-zA-Zа-яА-Я -]+$/;
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const nameRegex = /^[а-яА-Я a-zA-Z-\s]{2,50}$/
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
 
   function handleChangeName(evt) {
     const value = evt.target.value;
@@ -54,7 +55,6 @@ function Profile({ user, handleEditProfile, signOut, handleError }) {
             defaultValue={user.name}
             required
           ></input>
-          {nameError && <p className="profile__error">{nameError}</p>}
           <input
             className="profile__input profile__input_email"
             placeholder="E-mail"
@@ -64,7 +64,7 @@ function Profile({ user, handleEditProfile, signOut, handleError }) {
             defaultValue={user.email}
             required
           ></input>
-          {emailError && <p className="profile__error">{emailError}</p>}
+          {(emailError || nameError ) && <p className="profile__error">{nameError || emailError}</p>}
           <label className="profile__input_label profile__input_label_name">Имя</label>
           <label className="profile__input_label profile__input_label_email">Email</label>
 

@@ -8,7 +8,6 @@ function Login({ handleLogin, handleError }) {
     e.preventDefault();
     if (isValid) {
       handleLogin(values, 'login');
-
     }
   }
 

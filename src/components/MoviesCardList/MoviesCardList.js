@@ -1,8 +1,9 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength, currentUser }) {
+function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength, hasSearched, checked}) {
   return (
+
     <section className="moviescardlist moviescardlist-wrapper">
         {movieCards.map((card, id) => {
           return (
@@ -13,13 +14,12 @@ function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength,
                   onSave={onSave}
                   onDelete={onDelete}
                   savedMovies={savedMovies}
-                  currentUser={currentUser}
                 />
               </div>
           )
         }).slice(0, listLength)}
 
-      {movieCards.length === 0 ? <p className='moviescardlist__hint'>Ничего не найдено или строка поиска пуста</p> : movieCards.length > listLength}
+      {(movieCards.length === 0 && (hasSearched || checked === "1")) ? <p className='moviescardlist__hint'>Ничего не найдено</p> : movieCards.length > listLength}
     </section>
   );
 }

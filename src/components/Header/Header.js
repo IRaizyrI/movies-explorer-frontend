@@ -1,7 +1,7 @@
 import './Header.css';
 import logoHeader from '../../images/logo.svg';
 import accountIcon from '../../images/head.svg';
-import { useLocation, Link, useNavigate } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Navigation from "../Navigation/Navigation";
 
@@ -27,8 +27,8 @@ function Header( {loggedIn} ) {
         <header className="header header_not-home-page">
           <img className="header__logo" onClick={() => navigate('/')} src={logoHeader} alt="Логотип" />
           <div className="header__navigation-links">
-            <Link className="header__navigation-link" to="/movies">Фильмы</Link>
-            <Link className="header__navigation-link" to="/saved-movies">Сохраненные фильмы</Link>
+            <NavLink className={({isActive}) =>isActive ? "header__navigation-link header__navigation-link_active" : "header__navigation-link"} to="/movies">Фильмы</NavLink>
+            <NavLink className={({isActive}) =>isActive ? "header__navigation-link header__navigation-link_active" : "header__navigation-link"} active={'header__navigation-link_active'} to="/saved-movies">Сохраненные фильмы</NavLink>
           </div>
           <nav className="header__navigation">
             <button className="header__account-button" onClick={() => navigate('/profile')}>

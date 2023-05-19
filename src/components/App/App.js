@@ -18,6 +18,7 @@ import Preloader from "../Preloader/Preloader"
 import { RU_ERRORS } from '../../utils/constants';
 function App() {
   const navigate = useNavigate();
+
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState({});
@@ -28,22 +29,27 @@ function App() {
   const [addMoviesCount, setAddMoviesCount] = useState(0);
   const [cardCount, setCardCount] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasFetchedMovies, setHasFetchedMovies] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
   const [searchInitialized, setSearchInitialized] = useState(false);
+  const savedCheck = localStorage.getItem('saveCheck')
+  const [checked, setChecked] = useState(savedCheck ?? '0')
   const location = useLocation();
   function handleAuth(data, operationType) {
     const authFn = operationType === 'login' ? mainApi.authorization(data) : mainApi.registration(data);
     authFn
       .then((res) => {
         if (operationType === 'login') {
+          console.log("loggedIn")
+          navigate('/movies')
           setLoggedIn(true);
           setIsSuccess({success: true, message: ''});
-          navigate('/');
         } else if (operationType === 'register') {
           mainApi.authorization(data)
             .then(() => {
               setLoggedIn(true);
+              navigate('/movies')
               setIsSuccess({success: true, message: ''});
-              navigate('/');
             })
             .catch((err) => {
               setIsSuccess({success: false, message: RU_ERRORS[err]});
@@ -62,47 +68,33 @@ function App() {
   }, [location]);
 
   useEffect(() => {
+      setIsLoading(true)
       mainApi.checkToken()
         .then((res) => {
-          navigate('/movies')
           setLoggedIn(true);
+          mainApi.getProfileInfo()
+          .then(data => setCurrentUser(data))
+          .catch(err => console.log(err.message))
         })
         .catch((err) => console.log(err))
+        .finally(() => setIsLoading(false));
   }, [loggedIn])
 
   function signOut() {
     mainApi.signOut().then((res) => {
       setLoggedIn(false)
-      navigate('/signin')
+      navigate('/')
       localStorage.clear();
   })
   }
-  useEffect(() => {
-    setIsLoading(true);
-    if (loggedIn) {
-      moviesApi.getCards()
-      .then(res => {
-        localStorage.setItem('data', JSON.stringify(res));
-        const allMovies = JSON.parse(localStorage.getItem('data'));
-        setLocalData(allMovies);
-      })
-      .catch((err) => {
-        console.log(`Фильмы не удалось получить: ${err}`)
-      })
-      .finally(() => setIsLoading(false));
-      mainApi.getProfileInfo()
-        .then(data => setCurrentUser(data))
-        .catch(err => console.log(err.message))
-    }
-  }, [loggedIn])
 
   useEffect(() => {
-    setIsLoading(true);
       mainApi.getCards()
         .then(res => {
           localStorage.setItem('savedMovies', JSON.stringify(res.filter((i) => i.owner === currentUser._id)))
           const userMovies = JSON.parse(localStorage.getItem('savedMovies'));
           setLocalSavedData(userMovies);
+          setSavedMoviesFilter(userMovies);
         })
         .catch((err) => {
           console.log(`Проблема с получением сохраненных фильмов: ${err}`)
@@ -150,18 +142,44 @@ function App() {
   };
 
   const handleSearch = (value) => {
-    const sortedMovieSearch = localData.filter((item) => {
-      const nameEN = item.nameEN.toLowerCase();
-      const nameRU = item.nameRU.toLowerCase();
-      return (nameEN && nameEN.toLowerCase().includes(value.toLowerCase()))
-      || (nameRU && nameRU.toLowerCase().includes(value.toLowerCase()))
-        ? item : null
-    });
-
-    localStorage.setItem('filteredMovies', JSON.stringify(sortedMovieSearch));
-    setSearchInitialized(true);
-    setFilteredMovies(sortedMovieSearch)
+    if (!hasFetchedMovies) {
+      setIsLoading(true);
+      moviesApi.getCards()
+      .then(res => {
+        setHasFetchedMovies(true);
+        localStorage.setItem('data', JSON.stringify(res));
+        const allMovies = JSON.parse(localStorage.getItem('data'));
+        setLocalData(allMovies);
+        const sortedMovieSearch = allMovies.filter((item) => {
+          const nameEN = item.nameEN.toLowerCase();
+          const nameRU = item.nameRU.toLowerCase();
+          return (nameEN && nameEN.toLowerCase().includes(value.toLowerCase()))
+          || (nameRU && nameRU.toLowerCase().includes(value.toLowerCase()))
+            ? item : null
+        })
+        localStorage.setItem('filteredMovies', JSON.stringify(sortedMovieSearch));
+        setSearchInitialized(true);
+        setFilteredMovies(sortedMovieSearch)
+      })
+      .catch((err) => {
+        console.log(`Movies could not be fetched: ${err}`)
+      })
+      .finally(() => setIsLoading(false));
+    } else {
+      const sortedMovieSearch = localData.filter((item) => {
+        const nameEN = item.nameEN.toLowerCase();
+        const nameRU = item.nameRU.toLowerCase();
+        return (nameEN && nameEN.toLowerCase().includes(value.toLowerCase()))
+        || (nameRU && nameRU.toLowerCase().includes(value.toLowerCase()))
+          ? item : null
+      })
+      localStorage.setItem('filteredMovies', JSON.stringify(sortedMovieSearch));
+      setSearchInitialized(true);
+      setFilteredMovies(sortedMovieSearch)
+    }
   }
+
+
 
   const handleSearchSaved = (value) => {
     const sortedMovieSearch = localSavedData.filter((item) => {
@@ -210,7 +228,11 @@ function App() {
     setSearchInitialized(false);
   }, [width, searchInitialized])
 
-
+  if (isLoading) {
+    return (<div className="App">
+              <Preloader isLoading={isLoading}/>;
+            </div>)
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
@@ -221,7 +243,6 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn}>
                 <Preloader isLoading={isLoading}/>
                 <Movies
-                  currentUser={currentUser}
                   listLength={cardCount}
                   durationSwitch={durationSwitch}
                   handleSearch={handleSearch}
@@ -230,6 +251,10 @@ function App() {
                   onSave={handleSaveMovie}
                   addMovies={addMovies}
                   onDelete={handleDeleteCard}
+                  hasSearched={hasSearched}
+                  setHasSearched={setHasSearched}
+                  setChecked={setChecked}
+                  checked={checked}
                 />
                 </ProtectedRoute>} />
           <Route path="/saved-movies" element={
@@ -243,10 +268,14 @@ function App() {
                   addMovies={addMovies}
                   savedMovies={savedMoviesFilter}
                   listLength={cardCount}
+                  hasSearched={hasSearched}
+                  setHasSearched={setHasSearched}
+                  setChecked={setChecked}
+                  checked={checked}
                 />
             </ProtectedRoute>
               } />
-          <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn}><Profile user = {currentUser} handleEditProfile={handleEditProfile} signOut={signOut} handleError={isSuccess}/> </ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn}><Profile handleEditProfile={handleEditProfile} signOut={signOut} handleError={isSuccess}/> </ProtectedRoute>} />
           <Route path="/signup" element={<Register handleRegister={handleAuth} handleError={isSuccess}/>} />
           <Route path="/signin" element={<Login handleLogin={handleAuth} handleError={isSuccess}/>} />
           <Route path="*" element={<ProtectedRoute loggedIn={loggedIn}><NotFoundPage /> </ProtectedRoute>} />
