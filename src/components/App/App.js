@@ -15,7 +15,19 @@ import { moviesApi } from "../../utils/MoviesApi"
 import {useWindowWidth} from '../../hooks/useWindowWidth'
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 import Preloader from "../Preloader/Preloader"
-import { RU_ERRORS } from '../../utils/constants';
+import { RU_ERRORS,
+  DESKTOP_WIDTH,
+  DESKTOP_CARD_COUNT,
+  DESKTOP_ADD_MOVIES_COUNT,
+  TABLET_WIDTH,
+  TABLET_CARD_COUNT,
+  TABLET_ADD_MOVIES_COUNT,
+  MOBILE_S_WIDTH,
+  MOBILE_CARD_COUNT,
+  MOBILE_ADD_MOVIES_COUNT,
+  MOBILE_L_WIDTH,
+  SHORT_MOVIES_DURATION,
+    } from '../../utils/constants';
 function App() {
   const navigate = useNavigate();
 
@@ -181,21 +193,21 @@ function App() {
 
 
   const handleSearchSaved = (value) => {
-    const sortedMovieSearch = localSavedData.filter((item) => {
-      const nameEN = item.nameEN.toLowerCase();
-      const nameRU = item.nameRU.toLowerCase();
-      return (nameEN && nameEN.toLowerCase().includes(value.toLowerCase()))
-      || (nameRU && nameRU.toLowerCase().includes(value.toLowerCase()))
-        ? item : null
-    });
-    localStorage.setItem('savedFilter', JSON.stringify(sortedMovieSearch));
-    setSavedMoviesFilter(sortedMovieSearch);
-  }
+        const sortedMovieSearch = localSavedData.filter((item) => {
+          const nameEN = item.nameEN.toLowerCase();
+          const nameRU = item.nameRU.toLowerCase();
+          return (nameEN && nameEN.toLowerCase().includes(value.toLowerCase()))
+          || (nameRU && nameRU.toLowerCase().includes(value.toLowerCase()))
+            ? item : null
+        });
+        localStorage.setItem('savedFilter', JSON.stringify(sortedMovieSearch));
+        setSavedMoviesFilter(sortedMovieSearch);
+      }
 
   const durationSwitch = (checked) => {
     const filterMovies = JSON.parse(localStorage.getItem('filteredMovies'));
     if (checked === '1' && filterMovies) {
-      const shorts = filterMovies.filter((item) => item.duration <= 40);
+      const shorts = filterMovies.filter((item) => item.duration <= SHORT_MOVIES_DURATION);
       setFilteredMovies(shorts);
     } else {
       setFilteredMovies(filterMovies);
@@ -205,7 +217,7 @@ function App() {
   const savedDurationSwitch = (checked) => {
     const savedFiltered = JSON.parse(localStorage.getItem('savedFilter'));
     if (checked === '1' && savedFiltered) {
-      const shortDurationFilms = savedFiltered.filter((item) => item.duration <= 40);
+      const shortDurationFilms = savedFiltered.filter((item) => item.duration <= SHORT_MOVIES_DURATION);
       setSavedMoviesFilter(shortDurationFilms);
     } else {
       setSavedMoviesFilter(savedFiltered);
@@ -214,15 +226,15 @@ function App() {
 
   const width = useWindowWidth();
   useEffect(() => {
-    if (width >= 1280) {
-      setCardCount(12);
-      setAddMoviesCount(3);
-    } else if (width >= 768 && width <= 1279) {
-      setCardCount(8);
-      setAddMoviesCount(2);
-    } else if (width <= 320 && width <= 480) {
-      setCardCount(5);
-      setAddMoviesCount(2);
+    if (width >= DESKTOP_WIDTH) {
+      setCardCount(DESKTOP_CARD_COUNT);
+      setAddMoviesCount(DESKTOP_ADD_MOVIES_COUNT);
+    } else if (width >= TABLET_WIDTH && width <= DESKTOP_WIDTH-1) {
+      setCardCount(TABLET_CARD_COUNT);
+      setAddMoviesCount(TABLET_ADD_MOVIES_COUNT);
+    } else if (width <= MOBILE_S_WIDTH && width <= MOBILE_L_WIDTH) {
+      setCardCount(MOBILE_CARD_COUNT);
+      setAddMoviesCount(MOBILE_ADD_MOVIES_COUNT);
     }
     setSearchInitialized(false);
   }, [width, searchInitialized])
