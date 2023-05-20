@@ -1,30 +1,27 @@
-import React from 'react';
+import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-
-function MoviesCardList({ isSaved, storedSave }) {
+import { useLocation } from 'react-router-dom';
+function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength, hasSearched, checked, savedCheck, savedHasSearched}) {
+  const location = useLocation();
   return (
-    <section className="moviescardlist">
-      {isSaved ? (
-        <div className="moviescardlist-wrapper">
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-          <MoviesCard isSaved={isSaved} storedSave={storedSave}/>
-        </div>
-      ) : (
-        <div className="moviescardlist-wrapper">
-          <MoviesCard isSaved={!isSaved} />
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-          <MoviesCard isSaved={isSaved}/>
-        </div>
-      )}
+    <section className="moviescardlist moviescardlist-wrapper">
+        {movieCards.map((card, id) => {
+          return (
+              <div className='moviecard-wrapper' key={card.id ? card.id : id}>
+                <MoviesCard
+                  card={card}
+                  isLiked={card.isLiked}
+                  onSave={onSave}
+                  onDelete={onDelete}
+                  savedMovies={savedMovies}
+                />
+              </div>
+          )
+        }).slice(0, listLength)}
+
+      {(movieCards.length === 0 && ((location.pathname === "/movies" && (hasSearched || checked === "1")) ||
+                                   (location.pathname === "/saved-movies" && (savedCheck === "1" || savedHasSearched))
+                                   )) ? <p className='moviescardlist__hint'>Ничего не найдено</p> : movieCards.length > listLength}
     </section>
   );
 }

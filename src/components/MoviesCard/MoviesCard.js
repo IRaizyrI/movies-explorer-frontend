@@ -1,17 +1,32 @@
 import React from 'react'
-import img from '../../images/banksy.png'
-
-function MoviesCard({isSaved, storedSave}) {
+import {useLocation} from "react-router-dom";
+import {durationConverter} from '../../utils/utils'
+function MoviesCard({ card, onSave, onDelete, savedMovies}) {
+  const location = useLocation();
+  function handleSaveClick () {
+    if (location.pathname === "/movies") {
+      onSave(card)
+    }
+    if (location.pathname === "/saved-movies") {
+      onDelete(card)
+    }
+  }
   return (
     <div className='moviecard'>
-      <img className='moviecard__img' src={img} alt='movie'></img>
-      <button className={`moviecard__save  ${isSaved ? 'moviecard__save_saved' : 'moviecard__save_unsaved'} ${storedSave ? 'moviecard__stored-save' : ''} `}></button>
+      <a className='moviescard__link' href={card.trailerLink} target="_blank" rel="noreferrer">
+        <img className='moviecard__img' src={location.pathname === "/movies" ?
+          `https://api.nomoreparties.co${card.image.url}` : card.image} alt='movie'></img>
+      </a>
+      <button className={`moviecard__save ${location.pathname === "/movies" ?
+        (card.id && savedMovies.some((m) => m.movieId === card.id) ? "moviecard__save_saved" : "moviecard__save_unsaved")
+        : "moviecard__stored-save"}`}
+        onClick={handleSaveClick}></button>
       <div className='moviecard__info'>
-        <h2 className='moviecard__title'>В погоне за Бенкси</h2>
-        <p className='moviecard__duration'>1ч 17м</p>
+        <h2 className='moviecard__title'>{card.nameRU}</h2>
+        <p className='moviecard__duration'>{durationConverter(card.duration)}</p>
       </div>
-      
-      
+
+
     </div>
   )
 }

@@ -3,7 +3,7 @@
 }
 .moviecard__img {
   width: 100%;
-  max-height: 190px;
+  height: 190px;
   border-radius: 6px;
   object-fit: cover;
 }
@@ -64,6 +64,7 @@
   width: 21px;
   height: 21px;
   background-image: url(../../images/cross.svg);
+  background-color: transparent;
 }
 .moviecard:hover .moviecard__like_unlike {
   opacity: 1;
@@ -93,7 +94,7 @@
   }
   .moviecard__save_unsaved {
     top: 10px;
-    right: 10px;    
+    right: 10px;
   }
   .moviecard__info {
     margin-top: 14px;
