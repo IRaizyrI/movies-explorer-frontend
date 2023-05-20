@@ -277,7 +277,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute loggedIn={loggedIn}><Profile handleEditProfile={handleEditProfile} signOut={signOut} handleError={isSuccess}/> </ProtectedRoute>} />
           <Route path="/signup" element={<Register handleRegister={handleAuth} handleError={isSuccess}/>} />
           <Route path="/signin" element={<Login handleLogin={handleAuth} handleError={isSuccess}/>} />
-          <Route path="*" element={<ProtectedRoute loggedIn={loggedIn}><NotFoundPage /> </ProtectedRoute>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer/>
       </div>
