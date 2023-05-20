@@ -1,7 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength, hasSearched, checked}) {
+function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength, hasSearched, checked, savedCheck}) {
   return (
 
     <section className="moviescardlist moviescardlist-wrapper">
@@ -19,7 +19,7 @@ function MoviesCardList({ movieCards, onSave, onDelete, savedMovies, listLength,
           )
         }).slice(0, listLength)}
 
-      {(movieCards.length === 0 && (hasSearched || checked === "1")) ? <p className='moviescardlist__hint'>Ничего не найдено</p> : movieCards.length > listLength}
+      {(movieCards.length === 0 && ((hasSearched && checked === "1") || savedCheck === "1")) ? <p className='moviescardlist__hint'>Ничего не найдено</p> : movieCards.length > listLength}
     </section>
   );
 }

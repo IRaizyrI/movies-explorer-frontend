@@ -2,7 +2,7 @@ import React from "react";
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
-function Movies({ fetchMovies, movieCards, onSave, savedMovies, handleSearch, durationSwitch, listLength, addMovies, onDelete, hasSearched, setHasSearched, checked, setChecked }) {
+function Movies({ fetchMovies, movieCards, onSave, savedMovies, handleSearch, durationSwitch, listLength, addMovies, onDelete, hasSearched, setHasSearched, checked, setChecked, savedCheck, setSavedCheck }) {
   return (
       <main>
           <section className="movies">
@@ -14,6 +14,8 @@ function Movies({ fetchMovies, movieCards, onSave, savedMovies, handleSearch, du
               setHasSearched={setHasSearched}
               setChecked={setChecked}
               checked={checked}
+              savedCheck={savedCheck}
+              setSavedCheck={setSavedCheck}
             />
             <MoviesCardList
               hasSearched={hasSearched}

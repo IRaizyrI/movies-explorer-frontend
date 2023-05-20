@@ -108,8 +108,8 @@ signOut(){
 };
 
 }
-// "http://localhost:3001/api"
+// "https://api.logvinovilya-dip.nomoredomains.monster/api"
 const mainApi = new MainApi({
   "Content-Type": "application/json",
-}, "https://api.logvinovilya-dip.nomoredomains.monster/api")
+}, "http://localhost:3001/api")
 export { mainApi }

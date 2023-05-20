@@ -30,7 +30,7 @@ import { RU_ERRORS,
     } from '../../utils/constants';
 function App() {
   const navigate = useNavigate();
-
+  const [savedCheck, setSavedCheck] = useState('');
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [isSuccess, setIsSuccess] = useState({});
@@ -44,8 +44,8 @@ function App() {
   const [hasFetchedMovies, setHasFetchedMovies] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
   const [searchInitialized, setSearchInitialized] = useState(false);
-  const savedCheck = localStorage.getItem('saveCheck')
-  const [checked, setChecked] = useState(savedCheck ?? '0')
+  const storedCheck = localStorage.getItem('saveCheck')
+  const [checked, setChecked] = useState(storedCheck ?? '0')
   const location = useLocation();
   function handleAuth(data, operationType) {
     const authFn = operationType === 'login' ? mainApi.authorization(data) : mainApi.registration(data);
@@ -170,7 +170,6 @@ function App() {
         })
         localStorage.setItem('filteredMovies', JSON.stringify(sortedMovieSearch));
         setSearchInitialized(true);
-        setFilteredMovies(sortedMovieSearch)
       })
       .catch((err) => {
         console.log(`Movies could not be fetched: ${err}`)
@@ -186,11 +185,9 @@ function App() {
       })
       localStorage.setItem('filteredMovies', JSON.stringify(sortedMovieSearch));
       setSearchInitialized(true);
-      setFilteredMovies(sortedMovieSearch)
+      durationSwitch(checked)
     }
   }
-
-
 
   const handleSearchSaved = (value) => {
         const sortedMovieSearch = localSavedData.filter((item) => {
@@ -266,6 +263,8 @@ function App() {
                   setHasSearched={setHasSearched}
                   setChecked={setChecked}
                   checked={checked}
+                  savedCheck={savedCheck}
+                  setSavedCheck={setSavedCheck}
                 />
                 </ProtectedRoute>} />
           <Route path="/saved-movies" element={
@@ -283,6 +282,8 @@ function App() {
                   setHasSearched={setHasSearched}
                   setChecked={setChecked}
                   checked={checked}
+                  savedCheck={savedCheck}
+                  setSavedCheck={setSavedCheck}
                 />
             </ProtectedRoute>
               } />

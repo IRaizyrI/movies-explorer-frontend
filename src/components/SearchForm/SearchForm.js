@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched, checked, setChecked }) {
+function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched, checked, setChecked, savedCheck, setSavedCheck }) {
   const savedSearch = localStorage.getItem('saveSearchValue')
   const location = useLocation()
   const [value, setValue] = useState(savedSearch ?? '')
@@ -11,16 +11,21 @@ function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched,
     e.preventDefault()
     if (value.trim() !== '') {
       setErrorMessage('');
-      setChecked('0')
       handleSearch(value);
-      setHasSearched(true);
+      if (location.pathname === "/movies"){
+        setHasSearched(true);
+      }
+      if (location.pathname === "/saved-movies"){
+        durationSwitch(savedCheck);
+      }
     } else {
         setErrorMessage('Нужно ввести ключевое слово');
     }
   }
+
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
-      setChecked('0')
+      setSavedCheck('0')
       handleSearch('')
       setValue('')
     }
@@ -28,7 +33,6 @@ function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched,
   useEffect(() => {
     if (location.pathname === '/movies') {
       localStorage.setItem('saveSearchValue', value)
-      localStorage.setItem('saveCheck', checked)
       if (value.trim() === '') {
         setHasSearched(false);
       }
@@ -37,18 +41,20 @@ function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched,
 
   useEffect(() => {
     if (location.pathname === '/saved-movies') {
-      durationSwitch(checked)
+      durationSwitch(savedCheck)
     }
 
     if (location.pathname === '/movies') {
       durationSwitch(checked ?? '0')
+      localStorage.setItem('saveCheck', checked);
     }
-  }, [location, checked])
+  }, [checked, savedCheck])
 
   useEffect(() => {
     if (location.pathname === '/movies' && hasSearched) {
-        setChecked('0')
         handleSearch(savedSearch ?? '')
+        // console.log(checked)
+        // setChecked(localStorage.getItem('saveCheck'));
     }
   }, [location])
 
@@ -67,10 +73,15 @@ function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched,
         <div className="searchform__toggle">
           <p className="searchform__text">Короткометражки</p>
           <input type="checkbox" id="short-films-switch" className="searchform__switch"
-          checked={checked === '1'}
+          checked={(location.pathname === '/movies' && checked === '1') || (location.pathname === '/saved-movies' && savedCheck === '1')}
           onChange={(e) => {
             const newCheck = e.target.checked ? '1' : '0';
-            setChecked(newCheck);
+            if (location.pathname === '/saved-movies') {
+              setSavedCheck(newCheck);
+            }
+            if (location.pathname === '/movies') {
+              setChecked(newCheck);
+            }
           }}/>
         </div>
       </form>
