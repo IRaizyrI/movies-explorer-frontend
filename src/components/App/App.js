@@ -43,6 +43,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasFetchedMovies, setHasFetchedMovies] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+  const [savedHasSearched, setSavedHasSearched] = useState(false);
   const [searchInitialized, setSearchInitialized] = useState(false);
   const storedCheck = localStorage.getItem('saveCheck')
   const [checked, setChecked] = useState(storedCheck ?? '0')
@@ -135,7 +136,10 @@ function App() {
   const handleDeleteCard = (card) => {
     mainApi.deleteCard(card._id)
       .then(() => {
-        setSavedMoviesFilter(savedMoviesFilter.filter((i) => i._id !== card._id))
+        const filteredSavedMovies = savedMoviesFilter.filter((i) => i._id !== card._id)
+        setSavedMoviesFilter(filteredSavedMovies)
+        localStorage.setItem('savedFilter', JSON.stringify(localSavedData.filter(i => i._id !== card._id)));
+        console.log(savedMoviesFilter.filter((i) => i._id !== card._id))
         setLocalSavedData(localSavedData.filter(i => i._id !== card._id))
       })
   }
@@ -265,6 +269,8 @@ function App() {
                   checked={checked}
                   savedCheck={savedCheck}
                   setSavedCheck={setSavedCheck}
+                  setSavedHasSearched={setSavedHasSearched}
+                  savedHasSearched={savedHasSearched}
                 />
                 </ProtectedRoute>} />
           <Route path="/saved-movies" element={
@@ -284,6 +290,8 @@ function App() {
                   checked={checked}
                   savedCheck={savedCheck}
                   setSavedCheck={setSavedCheck}
+                  setSavedHasSearched={setSavedHasSearched}
+                  savedHasSearched={savedHasSearched}
                 />
             </ProtectedRoute>
               } />

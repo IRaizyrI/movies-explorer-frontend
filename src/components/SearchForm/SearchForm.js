@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched, checked, setChecked, savedCheck, setSavedCheck }) {
+function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched, checked, setChecked, savedCheck, setSavedCheck, setSavedHasSearched}) {
   const savedSearch = localStorage.getItem('saveSearchValue')
   const location = useLocation()
   const [value, setValue] = useState(savedSearch ?? '')
@@ -17,6 +17,7 @@ function SearchForm({ handleSearch, durationSwitch, hasSearched, setHasSearched,
       }
       if (location.pathname === "/saved-movies"){
         durationSwitch(savedCheck);
+        setSavedHasSearched(true);
       }
     } else {
         setErrorMessage('Нужно ввести ключевое слово');
