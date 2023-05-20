@@ -139,7 +139,6 @@ function App() {
         const filteredSavedMovies = savedMoviesFilter.filter((i) => i._id !== card._id)
         setSavedMoviesFilter(filteredSavedMovies)
         localStorage.setItem('savedFilter', JSON.stringify(localSavedData.filter(i => i._id !== card._id)));
-        console.log(savedMoviesFilter.filter((i) => i._id !== card._id))
         setLocalSavedData(localSavedData.filter(i => i._id !== card._id))
       })
   }
